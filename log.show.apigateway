@@ -1,0 +1,340 @@
+# data.archive_file.lambda_zip:
+data "archive_file" "lambda_zip" {
+    id                  = "c5c67c5611171021cef8502fef204e0dcf20069a"
+    output_base64sha256 = "7zVLfmto8v6Q7lhuKSrIL9FVJzJax1On/Tz+Gp8FciU="
+    output_base64sha512 = "MtcX04qyIPjEx4N5XzEPkdoWs5vv40v1EMBO5uMN0QMThSxu0lgqSFnPdWbwRdoo5wMVAVZv0MS91a1O09EuAg=="
+    output_md5          = "abadf3b2554e30f627c992805e48accb"
+    output_path         = "./package.zip"
+    output_sha          = "c5c67c5611171021cef8502fef204e0dcf20069a"
+    output_sha256       = "ef354b7e6b68f2fe90ee586e292ac82fd15527325ac753a7fd3cfe1a9f057225"
+    output_sha512       = "32d717d38ab220f8c4c783795f310f91da16b39befe34bf510c04ee6e30dd10313852c6ed2582a4859cf7566f045da28e7031501566fd0c4bdd5ad4ed3d12e02"
+    output_size         = 841
+    source_dir          = "./package"
+    type                = "zip"
+}
+
+# data.aws_caller_identity.current:
+data "aws_caller_identity" "current" {
+    account_id = "255945442255"
+    arn        = "arn:aws:iam::255945442255:user/jasonleong84"
+    id         = "255945442255"
+    user_id    = "AIDATXF4JQPHYQ2Z6Y5NH"
+}
+
+# aws_apigatewayv2_api.http_api:
+resource "aws_apigatewayv2_api" "http_api" {
+    api_endpoint                 = "https://0nkwg7l8w9.execute-api.ap-southeast-1.amazonaws.com"
+    api_key_selection_expression = "$request.header.x-api-key"
+    arn                          = "arn:aws:apigateway:ap-southeast-1::/apis/0nkwg7l8w9"
+    description                  = [90mnull[0m[0m
+    disable_execute_api_endpoint = false
+    execution_arn                = "arn:aws:execute-api:ap-southeast-1:255945442255:0nkwg7l8w9"
+    id                           = "0nkwg7l8w9"
+    name                         = "jasonleong84-topmovies-api"
+    protocol_type                = "HTTP"
+    route_selection_expression   = "$request.method $request.path"
+    tags                         = {}
+    tags_all                     = {}
+    version                      = [90mnull[0m[0m
+}
+
+# aws_apigatewayv2_integration.apigw_lambda:
+resource "aws_apigatewayv2_integration" "apigw_lambda" {
+    api_id                                    = "0nkwg7l8w9"
+    connection_id                             = [90mnull[0m[0m
+    connection_type                           = "INTERNET"
+    content_handling_strategy                 = [90mnull[0m[0m
+    credentials_arn                           = [90mnull[0m[0m
+    description                               = [90mnull[0m[0m
+    id                                        = "ht94nq4"
+    integration_method                        = "POST"
+    integration_response_selection_expression = [90mnull[0m[0m
+    integration_subtype                       = [90mnull[0m[0m
+    integration_type                          = "AWS_PROXY"
+    integration_uri                           = "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:255945442255:function:jasonleong84-topmovies-api/invocations"
+    passthrough_behavior                      = [90mnull[0m[0m
+    payload_format_version                    = "2.0"
+    request_parameters                        = {}
+    request_templates                         = {}
+    template_selection_expression             = [90mnull[0m[0m
+    timeout_milliseconds                      = 30000
+}
+
+# aws_apigatewayv2_route.delete_topmovies_by_year:
+resource "aws_apigatewayv2_route" "delete_topmovies_by_year" {
+    api_id                              = "0nkwg7l8w9"
+    api_key_required                    = false
+    authorization_scopes                = []
+    authorization_type                  = "NONE"
+    authorizer_id                       = [90mnull[0m[0m
+    id                                  = "v25fs8n"
+    model_selection_expression          = [90mnull[0m[0m
+    operation_name                      = [90mnull[0m[0m
+    request_models                      = {}
+    route_key                           = "DELETE /topmovies/{year}"
+    route_response_selection_expression = [90mnull[0m[0m
+    target                              = "integrations/ht94nq4"
+}
+
+# aws_apigatewayv2_route.get_topmovies:
+resource "aws_apigatewayv2_route" "get_topmovies" {
+    api_id                              = "0nkwg7l8w9"
+    api_key_required                    = false
+    authorization_scopes                = []
+    authorization_type                  = "NONE"
+    authorizer_id                       = [90mnull[0m[0m
+    id                                  = "0lljbcu"
+    model_selection_expression          = [90mnull[0m[0m
+    operation_name                      = [90mnull[0m[0m
+    request_models                      = {}
+    route_key                           = "GET /topmovies"
+    route_response_selection_expression = [90mnull[0m[0m
+    target                              = "integrations/ht94nq4"
+}
+
+# aws_apigatewayv2_route.get_topmovies_by_year:
+resource "aws_apigatewayv2_route" "get_topmovies_by_year" {
+    api_id                              = "0nkwg7l8w9"
+    api_key_required                    = false
+    authorization_scopes                = []
+    authorization_type                  = "NONE"
+    authorizer_id                       = [90mnull[0m[0m
+    id                                  = "8h9xwb1"
+    model_selection_expression          = [90mnull[0m[0m
+    operation_name                      = [90mnull[0m[0m
+    request_models                      = {}
+    route_key                           = "GET /topmovies/{year}"
+    route_response_selection_expression = [90mnull[0m[0m
+    target                              = "integrations/ht94nq4"
+}
+
+# aws_apigatewayv2_route.put_topmovies:
+resource "aws_apigatewayv2_route" "put_topmovies" {
+    api_id                              = "0nkwg7l8w9"
+    api_key_required                    = false
+    authorization_scopes                = []
+    authorization_type                  = "NONE"
+    authorizer_id                       = [90mnull[0m[0m
+    id                                  = "95gsr9i"
+    model_selection_expression          = [90mnull[0m[0m
+    operation_name                      = [90mnull[0m[0m
+    request_models                      = {}
+    route_key                           = "PUT /topmovies"
+    route_response_selection_expression = [90mnull[0m[0m
+    target                              = "integrations/ht94nq4"
+}
+
+# aws_apigatewayv2_stage.default:
+resource "aws_apigatewayv2_stage" "default" {
+    api_id                = "0nkwg7l8w9"
+    arn                   = "arn:aws:apigateway:ap-southeast-1::/apis/0nkwg7l8w9/stages/$default"
+    auto_deploy           = true
+    client_certificate_id = [90mnull[0m[0m
+    deployment_id         = "oddm6b"
+    description           = [90mnull[0m[0m
+    execution_arn         = "arn:aws:execute-api:ap-southeast-1:255945442255:0nkwg7l8w9/$default"
+    id                    = "$default"
+    invoke_url            = "https://0nkwg7l8w9.execute-api.ap-southeast-1.amazonaws.com/"
+    name                  = "$default"
+    stage_variables       = {}
+    tags                  = {}
+    tags_all              = {}
+
+    default_route_settings {
+        data_trace_enabled       = false
+        detailed_metrics_enabled = false
+        logging_level            = [90mnull[0m[0m
+        throttling_burst_limit   = 0
+        throttling_rate_limit    = 0
+    }
+}
+
+# aws_dynamodb_table.table:
+resource "aws_dynamodb_table" "table" {
+    arn                         = "arn:aws:dynamodb:ap-southeast-1:255945442255:table/jasonleong84-topmovies"
+    billing_mode                = "PAY_PER_REQUEST"
+    deletion_protection_enabled = false
+    hash_key                    = "year"
+    id                          = "jasonleong84-topmovies"
+    name                        = "jasonleong84-topmovies"
+    read_capacity               = 0
+    stream_arn                  = [90mnull[0m[0m
+    stream_enabled              = false
+    stream_label                = [90mnull[0m[0m
+    stream_view_type            = [90mnull[0m[0m
+    table_class                 = "STANDARD"
+    tags                        = {}
+    tags_all                    = {}
+    write_capacity              = 0
+
+    attribute {
+        name = "year"
+        type = "N"
+    }
+
+    point_in_time_recovery {
+        enabled = false
+    }
+
+    ttl {
+        attribute_name = [90mnull[0m[0m
+        enabled        = false
+    }
+}
+
+# aws_iam_policy.lambda_exec_role:
+resource "aws_iam_policy" "lambda_exec_role" {
+    arn              = "arn:aws:iam::255945442255:policy/jasonleong84-topmovies-api-ddbaccess"
+    attachment_count = 1
+    description      = [90mnull[0m[0m
+    id               = "arn:aws:iam::255945442255:policy/jasonleong84-topmovies-api-ddbaccess"
+    name             = "jasonleong84-topmovies-api-ddbaccess"
+    name_prefix      = [90mnull[0m[0m
+    path             = "/"
+    policy           = jsonencode(
+        {
+            Statement = [
+                {
+                    Action   = [
+                        "dynamodb:GetItem",
+                        "dynamodb:PutItem",
+                        "dynamodb:DeleteItem",
+                        "dynamodb:Scan",
+                    ]
+                    Effect   = "Allow"
+                    Resource = "arn:aws:dynamodb:ap-southeast-1:255945442255:table/jasonleong84-topmovies"
+                },
+                {
+                    Action   = [
+                        "logs:CreateLogGroup",
+                        "logs:CreateLogStream",
+                        "logs:PutLogEvents",
+                    ]
+                    Effect   = "Allow"
+                    Resource = "*"
+                },
+            ]
+            Version   = "2012-10-17"
+        }
+    )
+    policy_id        = "ANPATXF4JQPHSWBPYGXJ2"
+    tags             = {}
+    tags_all         = {}
+}
+
+# aws_iam_role.lambda_exec:
+resource "aws_iam_role" "lambda_exec" {
+    arn                   = "arn:aws:iam::255945442255:role/jasonleong84-topmovies-api-executionrole"
+    assume_role_policy    = jsonencode(
+        {
+            Statement = [
+                {
+                    Action    = "sts:AssumeRole"
+                    Effect    = "Allow"
+                    Principal = {
+                        Service = "lambda.amazonaws.com"
+                    }
+                    Sid       = ""
+                },
+            ]
+            Version   = "2012-10-17"
+        }
+    )
+    create_date           = "2025-01-04T02:51:13Z"
+    description           = [90mnull[0m[0m
+    force_detach_policies = false
+    id                    = "jasonleong84-topmovies-api-executionrole"
+    managed_policy_arns   = [
+        "arn:aws:iam::255945442255:policy/jasonleong84-topmovies-api-ddbaccess",
+    ]
+    max_session_duration  = 3600
+    name                  = "jasonleong84-topmovies-api-executionrole"
+    name_prefix           = [90mnull[0m[0m
+    path                  = "/"
+    permissions_boundary  = [90mnull[0m[0m
+    tags                  = {}
+    tags_all              = {}
+    unique_id             = "AROATXF4JQPH3R2N3VSS4"
+}
+
+# aws_iam_role_policy_attachment.lambda_policy:
+resource "aws_iam_role_policy_attachment" "lambda_policy" {
+    id         = "jasonleong84-topmovies-api-executionrole-20250104025416484800000001"
+    policy_arn = "arn:aws:iam::255945442255:policy/jasonleong84-topmovies-api-ddbaccess"
+    role       = "jasonleong84-topmovies-api-executionrole"
+}
+
+# aws_lambda_function.http_api_lambda:
+resource "aws_lambda_function" "http_api_lambda" {
+    architectures                  = [
+        "x86_64",
+    ]
+    arn                            = "arn:aws:lambda:ap-southeast-1:255945442255:function:jasonleong84-topmovies-api"
+    code_sha256                    = "7zVLfmto8v6Q7lhuKSrIL9FVJzJax1On/Tz+Gp8FciU="
+    code_signing_config_arn        = [90mnull[0m[0m
+    description                    = "Lambda function to write to dynamodb"
+    filename                       = "./package.zip"
+    function_name                  = "jasonleong84-topmovies-api"
+    handler                        = "app.lambda_handler"
+    id                             = "jasonleong84-topmovies-api"
+    image_uri                      = [90mnull[0m[0m
+    invoke_arn                     = "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:255945442255:function:jasonleong84-topmovies-api/invocations"
+    kms_key_arn                    = [90mnull[0m[0m
+    last_modified                  = "2025-01-04T02:51:22.663+0000"
+    layers                         = []
+    memory_size                    = 128
+    package_type                   = "Zip"
+    publish                        = false
+    qualified_arn                  = "arn:aws:lambda:ap-southeast-1:255945442255:function:jasonleong84-topmovies-api:$LATEST"
+    qualified_invoke_arn           = "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-southeast-1:255945442255:function:jasonleong84-topmovies-api:$LATEST/invocations"
+    reserved_concurrent_executions = -1
+    role                           = "arn:aws:iam::255945442255:role/jasonleong84-topmovies-api-executionrole"
+    runtime                        = "python3.13"
+    signing_job_arn                = [90mnull[0m[0m
+    signing_profile_version_arn    = [90mnull[0m[0m
+    skip_destroy                   = false
+    source_code_hash               = "7zVLfmto8v6Q7lhuKSrIL9FVJzJax1On/Tz+Gp8FciU="
+    source_code_size               = 841
+    tags                           = {}
+    tags_all                       = {}
+    timeout                        = 3
+    version                        = "$LATEST"
+
+    environment {
+        variables = {
+            "DDB_TABLE" = "jasonleong84-topmovies"
+        }
+    }
+
+    ephemeral_storage {
+        size = 512
+    }
+
+    logging_config {
+        application_log_level = [90mnull[0m[0m
+        log_format            = "Text"
+        log_group             = "/aws/lambda/jasonleong84-topmovies-api"
+        system_log_level      = [90mnull[0m[0m
+    }
+
+    tracing_config {
+        mode = "PassThrough"
+    }
+}
+
+# aws_lambda_permission.api_gw:
+resource "aws_lambda_permission" "api_gw" {
+    action              = "lambda:InvokeFunction"
+    function_name       = "jasonleong84-topmovies-api"
+    id                  = "AllowExecutionFromAPIGateway"
+    principal           = "apigateway.amazonaws.com"
+    qualifier           = [90mnull[0m[0m
+    source_arn          = "arn:aws:execute-api:ap-southeast-1:255945442255:0nkwg7l8w9/*/*"
+    statement_id        = "AllowExecutionFromAPIGateway"
+    statement_id_prefix = [90mnull[0m[0m
+}
+
+
+Outputs:
+
+invoke_url = "https://0nkwg7l8w9.execute-api.ap-southeast-1.amazonaws.com"
