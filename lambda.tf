@@ -72,3 +72,14 @@ resource "aws_iam_role_policy_attachment" "lambda_policy" {
   role       = aws_iam_role.lambda_exec.name
   policy_arn = aws_iam_policy.lambda_exec_role.arn
 }
+
+resource "aws_cloudwatch_log_group" "log_retention" {
+  name = "/aws/lambda/${aws_lambda_function.http_api_lambda.function_name}"
+
+  retention_in_days = 7
+
+  lifecycle {
+    create_before_destroy = true
+    prevent_destroy       = false
+  }
+}

@@ -39,3 +39,5 @@ terraform.rc
 *.zip
 
 log.*
+
+invoke_url.txt

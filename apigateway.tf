@@ -8,6 +8,22 @@ resource "aws_apigatewayv2_stage" "default" {
 
   name        = "$default"
   auto_deploy = true
+
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_logs.arn
+    format          = jsonencode({
+      requestId = "$context.requestId",
+      ip = "$context.identity.sourceIp",
+      requestTime = "$context.requestTime",
+      httpMethod = "$context.httpMethod",
+      routeKey = "$context.routeKey",
+      status = "$context.status",
+      protocol = "$context.protocol",
+      responseLength = "$context.responseLength"
+    })
+  }
+  
 }
 
 resource "aws_apigatewayv2_integration" "apigw_lambda" {
@@ -50,4 +66,14 @@ resource "aws_lambda_permission" "api_gw" {
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
+}
+
+resource "aws_cloudwatch_log_group" "api_gateway_logs" {
+  name              = "API-Gateway-Execution-Logs/${aws_apigatewayv2_api.http_api.name}"
+  retention_in_days = 7
+
+  lifecycle {
+    create_before_destroy = true
+    prevent_destroy       = false
+  }
 }
